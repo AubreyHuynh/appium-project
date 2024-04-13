@@ -1,3 +1,5 @@
+package capabilities;
+
 import io.appium.java_client.ios.options.XCUITestOptions;
 
 public class IOSCapabilities {

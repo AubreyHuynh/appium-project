@@ -1,3 +1,5 @@
+package capabilities;
+
 import io.appium.java_client.android.options.UiAutomator2Options;
 
 public class AndroidCapabilities {

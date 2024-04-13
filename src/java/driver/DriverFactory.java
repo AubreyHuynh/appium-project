@@ -1,3 +1,7 @@
+package driver;
+
+import capabilities.AndroidCapabilities;
+import capabilities.IOSCapabilities;
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.ios.IOSDriver;
@@ -24,11 +28,11 @@ public class DriverFactory {
         AppiumDriver appiumDriver;
         switch (platform) {
             case MobilePlatform.ANDROID:
-//                appiumDriver = new AndroidDriver(appiumServer, AndroidDesiredCapabilities.setCapabilities());
+//                appiumDriver = new AndroidDriver(appiumServer, capabilities.AndroidDesiredCapabilities.setCapabilities());
                 appiumDriver = new AndroidDriver(appiumServer, AndroidCapabilities.setOptions());
                 break;
             case MobilePlatform.IOS:
-//                appiumDriver = new IOSDriver(appiumServer, IOSDesiredCapabilities.setCapabilities());
+//                appiumDriver = new IOSDriver(appiumServer, capabilities.IOSDesiredCapabilities.setCapabilities());
                 appiumDriver = new IOSDriver(appiumServer, IOSCapabilities.setCapabilities());
                 break;
             default:
