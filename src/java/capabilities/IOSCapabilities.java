@@ -7,7 +7,7 @@ public class IOSCapabilities {
 
         XCUITestOptions capabilities = new XCUITestOptions();
         capabilities.setUdid("emulator-5554");
-        capabilities.setDeviceName("Pixel 5 API 34");
+        capabilities.setDeviceName("Pixel_8_Pro");
         // not yet complete and tobe continue in next lesson
 
         return capabilities;

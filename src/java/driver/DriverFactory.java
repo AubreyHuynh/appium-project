@@ -2,6 +2,7 @@ package driver;
 
 import capabilities.AndroidCapabilities;
 import capabilities.IOSCapabilities;
+import exceptions.PlatformNotSupportException;
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.ios.IOSDriver;
@@ -20,7 +21,7 @@ public class DriverFactory {
 
         URL appiumServer;
         try {
-            appiumServer = new URL("http://localhost:4723");
+            appiumServer = new URL("http://localhost:5555");
         } catch (MalformedURLException e) {
             throw new RuntimeException("Failed to construct the Appium server URL", e);
         }
