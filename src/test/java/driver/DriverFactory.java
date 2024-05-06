@@ -1,48 +1,47 @@
 package driver;
 
-import capabilities.AndroidCapabilities;
-import capabilities.IOSCapabilities;
-import exceptions.PlatformNotSupportException;
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.ios.IOSDriver;
-import io.appium.java_client.remote.MobilePlatform;
-
-import java.net.MalformedURLException;
+import org.openqa.selenium.remote.DesiredCapabilities;
 import java.net.URL;
 import java.time.Duration;
 
 public class DriverFactory {
-    public static AppiumDriver getDriver(String platform) {
 
-        if (platform == null) {
-            throw new IllegalArgumentException("Platform must not be null");
-        }
-
-        URL appiumServer;
+    public static AppiumDriver getDriver(Platform platform) {
+        AppiumDriver appiumDriver = null;
+        // DesiredCaps
+        DesiredCapabilities desiredCapabilities = new DesiredCapabilities();
+        desiredCapabilities.setCapability(MobileCapabilityType.PLATFORM_NAME, "Android");
+        desiredCapabilities.setCapability(MobileCapabilityType.AUTOMATION_NAME_OPTION, "uiautomator2");
+        desiredCapabilities.setCapability(MobileCapabilityType.UDID_OPTION, "emulator-5554");
+        desiredCapabilities.setCapability(MobileCapabilityType.APP_PACKAGE_OPTION, "com.wdiodemoapp");
+        desiredCapabilities.setCapability(MobileCapabilityType.APP_ACTIVITY_OPTION,
+                "com.wdiodemoapp.MainActivity");
+        URL appiumServer = null;
         try {
-            appiumServer = new URL("http://localhost:5555");
-        } catch (MalformedURLException e) {
-            throw new RuntimeException("Failed to construct the Appium server URL", e);
+            appiumServer = new URL("http://localhost:4723");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        if (appiumServer == null) {
+            throw new RuntimeException("Can't construct the appium server URL");
         }
 
-        AppiumDriver appiumDriver;
         switch (platform) {
-            case MobilePlatform.ANDROID:
-//                appiumDriver = new AndroidDriver(appiumServer, capabilities.AndroidDesiredCapabilities.setCapabilities());
-                appiumDriver = new AndroidDriver(appiumServer, AndroidCapabilities.setOptions());
+            case ANDROID:
+                appiumDriver = new AndroidDriver(appiumServer, desiredCapabilities);
                 break;
-            case MobilePlatform.IOS:
-//                appiumDriver = new IOSDriver(appiumServer, capabilities.IOSDesiredCapabilities.setCapabilities());
-                appiumDriver = new IOSDriver(appiumServer, IOSCapabilities.setCapabilities());
+            case IOS:
+                appiumDriver = new IOSDriver(appiumServer, desiredCapabilities);
                 break;
-            default:
-                throw new PlatformNotSupportException("Platform is not supported");
         }
 
-        // Global Implicit Wait - applied for WHOLE driver session
-        appiumDriver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10L));
-
+        // Need one more thing here that we will talk in next lesson
+        // Global wait time applied for the WHOLE driver session - Implicit wait
+        appiumDriver.manage().timeouts().implicitlyWait(Duration.ofSeconds(2L));
         return appiumDriver;
     }
+
 }
