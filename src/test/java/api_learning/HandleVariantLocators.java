@@ -4,11 +4,10 @@ import driver.DriverFactory;
 import driver.Platform;
 import io.appium.java_client.AppiumBy;
 import io.appium.java_client.AppiumDriver;
+import java.util.Map;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import utils.ElementHandler;
-
-import java.util.Map;
 
 public class HandleVariantLocators {
 
